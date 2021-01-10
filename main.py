@@ -4,7 +4,7 @@ import sys
 import math
 
 # TODO NEEED TO REFACTOR ALL!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+import random
 ROW_COUNT = 6  # Global Static Variable
 COLUMN_COUNT = 7  # These are the rows and colums specified before the program begins
 
@@ -143,7 +143,8 @@ while not game_over:
             if turn == 0:
                 pygame.draw.circle(game_window, RED_COLOR, (mouse_click_pos_x, int(SQUARE_SIZE / 2)), chip_radius)
             else:
-                pygame.draw.circle(game_window, YELLOW_COLOR, (mouse_click_pos_x, int(SQUARE_SIZE / 2)), chip_radius)
+                pass
+                # pygame.draw.circle(game_window, YELLOW_COLOR, (mouse_click_pos_x, int(SQUARE_SIZE / 2)), chip_radius)
 
         if event.type == pygame.QUIT:  # Done in every game, it allows us to properly exit out of any game
             sys.exit()  # system exit (when we click on exit sign it should close)
@@ -165,10 +166,21 @@ while not game_over:
                         game_window.blit(label,
                                          (40, 10))  # It updates text to the specific part(position) of the screen
                         game_over = True  # It ends the game
+                print_board(board)
+                draw_board(board)  # need re draw_board after every turn
+
+                turn += 1  # increase each term  by one
+                turn = turn % 2  # It alternates between player 1 and player 2
+                pygame.time.wait(100)
 
 
             # Ask for Player 2 Input
             else:
+                pass
+                #col=random.randint(0, COLUMN_COUNT)
+                #row = get_valid_bottom_row_of_col(board, col)
+                #drop_piece(board, row, col, 2)
+                """
                 # the initial position
                 mouse_click_pos_x = event.pos[0]
                 # calc in which col chip will be placed
@@ -178,15 +190,29 @@ while not game_over:
                 if is_valid_col(board, col):
                     # get most_valid_bottom row of colomn
                     row = get_valid_bottom_row_of_col(board, col)
+                    #places chip at cpecific coords
                     drop_piece(board, row, col, 2)
 
                     if is_winning_state(board, 2):
                         label = my_font.render("Player 2 AI wins!!", 1, YELLOW_COLOR)
                         game_window.blit(label, (40, 10))
-                        game_over = True  # It ends the game
+                        game_over = True  # It ends the game"""
 
-            print_board(board)
-            draw_board(board)  # we need to draw_board after every turn
+
+            #print_board(board)
+            #draw_board(board)  # need re draw_board after every turn
+
+            #turn += 1  # increase each term  by one
+            #turn = turn % 2  # It alternates between player 1 and player 2
+
+        #AI turn
+        if turn !=0:
+            col = random.randint(0, COLUMN_COUNT - 1)
+            row = get_valid_bottom_row_of_col(board, col)
+            drop_piece(board, row, col, 2)
+
+            #print_board(board)
+            draw_board(board)  # need re draw_board after every turn
 
             turn += 1  # increase each term  by one
             turn = turn % 2  # It alternates between player 1 and player 2
