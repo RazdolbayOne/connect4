@@ -36,19 +36,20 @@ def get_next_open_row(board, col):
             return r
 
 
-def print_board(board):  # To make the board build from the bottom up
-    print(np.flip(board,
-                  0))  # 0 is the axis i.e. flip the board over x axis, right side up (np.flip() is a command in numpy)
+def print_board(board):
+    """ To make the board build from the bottom up"""
+    # 0 is the axis i.e. flip the board over x axis, right side up (np.flip() is a command in numpy)
+    print(np.flip(board,0))
     print("---------------------------------------")
 
-def winning_move(board,
-                 piece):  # The game lets you know that 4 dots are in line(either horizontally,vertically and diagonally)
+def winning_move(board,piece):
+    # The game lets you know that 4 dots are in line(either horizontally,vertically and diagonally)
     # Check horizontal locations for win
 
-    for c in range(COLUMN_COUNT - 3):  # we're subtracting 3 since the logic is applicable for 4 columns only
+    for cols in range(COLUMN_COUNT - 3):  # we're subtracting 3 since the logic is applicable for 4 columns only
         for r in range(ROW_COUNT):
-            if (board[r][c] == piece and board[r][c + 1] == piece and board[r][c + 2] == piece and board[r][
-                c + 3] == piece):
+            if (board[r][cols] == piece and board[r][cols + 1] == piece and board[r][cols + 2] == piece and board[r][
+                cols + 3] == piece):
                 return True
 
     # Check vertical locations for win
@@ -75,7 +76,8 @@ def winning_move(board,
                 return True
 
 
-def draw_board(board):  # just like print_board but it draws in pygame
+def draw_board(board):
+    """ just like print_board but it draws in pygame"""
     for c in range(COLUMN_COUNT):
         for r in range(ROW_COUNT):
             pygame.draw.rect(screen, BLUE, (c * SQUARESIZE, r * SQUARESIZE + SQUARESIZE, SQUARESIZE,
@@ -120,7 +122,8 @@ pygame.display.update()  # Whenever we want to update our display
 myfont = pygame.font.SysFont("monospace", 75)  # Refer the documentation ()
 
 while not game_over:
-    for event in pygame.event.get():  # pygame is an event based library it reads every key or mouse-click pressed as an event
+    # pygame is an event based library it reads every key or mouse-click pressed as an event
+    for event in pygame.event.get():
 
         pygame.display.update()
         if event.type == pygame.MOUSEMOTION:
@@ -136,7 +139,6 @@ while not game_over:
 
         if event.type == pygame.MOUSEBUTTONDOWN:  # Where we click it drops down the piece in that place
             pygame.draw.rect(screen, BLACK, (0, 0, width, SQUARESIZE))
-            # print(event.pos)
 
             # Ask for Player 1 Input
             if (turn == 0):
@@ -172,4 +174,4 @@ while not game_over:
             turn = turn % 2  # It alternates between player 1 and player 2
 
         if game_over:
-            pygame.time.wait(3000)  # The wait value is in millisecond hence here the wait is 3 seconds
+           pygame.time.wait(3000)  # The wait value is in millisecond hence here the wait is 3 seconds
